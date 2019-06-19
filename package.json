@@ -1,0 +1,29 @@
+{
+  "name": "make-project",
+  "version": "1.0.0",
+  "description": "git config --global user.name "Sean Dittmar"",
+  "main": "cli.js",
+  "scripts": {
+    "start": "node cli.js"
+  },
+  "bin": {
+    "make-project": "cli.js"
+  },
+  "publishConfig": {
+    "access":"public"
+  },
+  "keywords": [
+    "boilerplate",
+    "scaffolding",
+    "projects",
+    "generator"
+  ],
+  "author": "dittmaraz",
+  "license": "MIT",
+  "dependencies": {
+    "faker": "^4.1.0",
+    "inquirer": "^6.3.1",
+    "open": "^6.3.0",
+    "simple-git": "^1.115.0"
+  }
+}
