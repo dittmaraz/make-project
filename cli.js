@@ -2,6 +2,9 @@
 const inquirer = require('inquirer')
 const faker = require('faker')
 const fs = require('fs');
+const chalkpipe = require('chalk-pipe');
+
+const dim = chalkpipe('dim.blue.bold')
 
 let projectsFolderPath = '';
 let projectName = '';
@@ -20,7 +23,7 @@ inquirer.prompt({
 })
 .then(answers => {
     projectsFolderPath = answers.projectsFolderPath;
-    
+    console.log(dim("Project folder set."))    
     //Ask for the new project's name, the default is a randomly generated one
     const defaultProjectName = faker.lorem.word() + '-' + faker.lorem.word()
     inquirer.prompt({
@@ -34,10 +37,10 @@ inquirer.prompt({
     .then(answers => {
         projectName = answers.projectName;
         projectPath = projectsFolderPath + '/' + projectName
-        
+        console.log(dim("Target path set."))
         // Create the new project's folder
         fs.mkdirSync(projectPath)
-        
+        console.log(dim(projectPath + " created."))
         // Ask which type of project, Web or React
         inquirer.prompt({
             type: "list",
@@ -61,7 +64,7 @@ inquirer.prompt({
                     simpleGit.clone('https://gitlab.com/dittmaraz/react-boilerplate',projectPath)
                     break;
             }
-
+            console.log(dim("Boilerplate code copied to target folder."))
             inquirer.prompt({
                 type: 'confirm',
                 name: 'open',
@@ -73,7 +76,7 @@ inquirer.prompt({
             .then(answers => {
                 if (answers.open) {
                     const open = require('open')
-                    console.log(projectPath)
+                    console.log(dim("Opening target folder in VS Code..."))
                     open(projectPath,{app:'code'})
                 }
             })

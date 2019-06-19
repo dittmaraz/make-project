@@ -1,7 +1,7 @@
 {
   "name": "make-project",
   "version": "1.0.0",
-  "description": "git config --global user.name "Sean Dittmar"",
+  "description": "Create boilerplate code for new projects",
   "main": "cli.js",
   "scripts": {
     "start": "node cli.js"
@@ -10,7 +10,7 @@
     "make-project": "cli.js"
   },
   "publishConfig": {
-    "access":"public"
+    "access": "public"
   },
   "keywords": [
     "boilerplate",
@@ -21,6 +21,7 @@
   "author": "dittmaraz",
   "license": "MIT",
   "dependencies": {
+    "chalk-pipe": "^2.0.0",
     "faker": "^4.1.0",
     "inquirer": "^6.3.1",
     "open": "^6.3.0",
