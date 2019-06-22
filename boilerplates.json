@@ -1,0 +1,15 @@
+{
+    "boilerplates" : [
+        {
+            "name": "Web Project",
+            "description": "Web based project with Bootstrap, jQuery, and FontAwesome",
+            "repository": "https://gitlab.com/dittmaraz/html-boilerplate"
+        },
+        {
+            "name": "React Project",
+            "description": "React project, created with create-react-app, slimmed down to the essentials",
+            "repository": "https://gitlab.com/dittmaraz/react-boilerplate"
+        }
+    ]
+}
+    

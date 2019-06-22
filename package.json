@@ -23,8 +23,11 @@
   "dependencies": {
     "chalk-pipe": "^2.0.0",
     "faker": "^4.1.0",
-    "inquirer": "^6.3.1",
+    "inquirer": "^6.4.1",
     "open": "^6.3.0",
     "simple-git": "^1.115.0"
-  }
+  },
+  "files": [
+    "boilerplates.json"
+  ]
 }

@@ -12,6 +12,10 @@ let projectPath = '';
 
 const defaultProjectsFolderPath = '/home/' + process.env.USER + '/projects';
 
+let boilers = [];
+
+boilers = getBoilerPlates();
+
 // Ask for the user's projects path, the default is /home/$USER/projects
 inquirer.prompt({
     type: "input",
@@ -38,33 +42,27 @@ inquirer.prompt({
         projectName = answers.projectName;
         projectPath = projectsFolderPath + '/' + projectName
         console.log(dim("Target path set."))
+        
         // Create the new project's folder
         fs.mkdirSync(projectPath)
         console.log(dim(projectPath + " created."))
+
         // Ask which type of project, Web or React
         inquirer.prompt({
             type: "list",
             name: 'type',
             message: "What type of project would you like to create: ",
-            choices: [
-                "Web Project",
-                "React Project"
-            ],
-            filter: function(val){
-                return val.toLocaleLowerCase()
-            }
+            
+            choices: boilers
         })
         .then(answers => {
+            let repo = boilers[answers.type].repository
+     
             const simpleGit = require('simple-git')(projectPath);
-            switch(answers.type){
-                case 'web project':
-                    simpleGit.clone('https://gitlab.com/dittmaraz/html-boilerplate',projectPath)
-                    break;
-                case 'react project':
-                    simpleGit.clone('https://gitlab.com/dittmaraz/react-boilerplate',projectPath)
-                    break;
-            }
+            simpleGit.clone(repo,projectPath)
+           
             console.log(dim("Boilerplate code copied to target folder."))
+            
             inquirer.prompt({
                 type: 'confirm',
                 name: 'open',
@@ -75,8 +73,9 @@ inquirer.prompt({
             })
             .then(answers => {
                 if (answers.open) {
-                    const open = require('open')
                     console.log(dim("Opening target folder in VS Code..."))
+            
+                    const open = require('open')
                     open(projectPath,{app:'code'})
                 }
             })
@@ -84,3 +83,16 @@ inquirer.prompt({
         })
     })
 })
+
+function getBoilerPlates(){
+    let rawdata = fs.readFileSync('./boilerplates.json');  
+    let json = JSON.parse(rawdata)
+    return json.boilerplates.map((val,i) => {
+        let o = {
+            value: i,
+            name: `${val.name} - ${val.description}`,
+            repository: val.repository
+        }
+        return o
+    })
+}
